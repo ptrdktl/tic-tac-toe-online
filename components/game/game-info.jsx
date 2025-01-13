@@ -1,5 +1,4 @@
 import { GameSymbol } from "./game-symbol";
-import styles from "./game.module.css";
 
 export function GameInfo({ isDraw, winnerSymbol, currentStep }) {
   if (isDraw) {
