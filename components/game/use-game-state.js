@@ -24,10 +24,10 @@ const computeWinner = (cells) => {
 export function useGameState() {
   const [cells, setCells] = useState(Array(9).fill(null));
   const [currentStep, setCurrentStep] = useState(SYMBOL_O);
-  const [winnerSequence, setWinnerSequence] = useState();
+  const [getWinnerCell, setWinnerSequence] = useState();
 
-  const handleCellClick = (index) => {
-    if (cells[index] || winnerSequence) {
+  const toggleCell = (index) => {
+    if (cells[index] || getWinnerCell) {
       return;
     }
 
@@ -40,22 +40,22 @@ export function useGameState() {
     setWinnerSequence(winner);
   };
 
-  const handleResetClick = () => {
+  const resetGame = () => {
     setCells(Array(9).fill(null));
     setCurrentStep(SYMBOL_O);
     setWinnerSequence();
   };
 
-  const winnerSymbol = winnerSequence ? cells[winnerSequence[0]] : undefined;
-  const isDraw = !winnerSequence && cells.filter((value) => value).length === 9;
+  const winnerSymbol = getWinnerCell ? cells[getWinnerCell[0]] : undefined;
+  const isDraw = !getWinnerCell && cells.filter((value) => value).length === 9;
 
   return {
     cells,
     currentStep,
-    winnerSequence,
-    handleCellClick,
-    handleResetClick,
     winnerSymbol,
     isDraw,
+    resetGame,
+    toggleCell,
+    getWinnerCell,
   };
 }
