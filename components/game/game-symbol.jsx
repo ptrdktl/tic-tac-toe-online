@@ -8,7 +8,7 @@ export function GameSymbol({ symbol }) {
         "text-xl",
         {
           [SYMBOL_O]: "text-green-400",
-          [SYMBOL_X]: "text-red-600",
+          [SYMBOL_X]: "text-red-400",
         }[symbol],
       )}
     >

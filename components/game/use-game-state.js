@@ -24,13 +24,16 @@ const computeWinner = (cells) => {
 export function useGameState() {
   const [cells, setCells] = useState(Array(9).fill(null));
   const [currentStep, setCurrentStep] = useState(SYMBOL_O);
-  const [getWinnerCell, setWinnerSequence] = useState();
+  const [winnerSequence, setWinnerSequence] = useState();
+
+  const winnerSymbol = winnerSequence ? cells[winnerSequence[0]] : undefined;
+  const isDraw = !winnerSequence && cells.filter((value) => value).length === 9;
+  const getWinnerCell = (index) => winnerSequence?.includes(index);
 
   const toggleCell = (index) => {
-    if (cells[index] || getWinnerCell) {
+    if (cells[index] || winnerSequence) {
       return;
     }
-
     const cellsCopy = cells.slice();
     cellsCopy[index] = currentStep;
     const winner = computeWinner(cellsCopy);
@@ -41,21 +44,18 @@ export function useGameState() {
   };
 
   const resetGame = () => {
-    setCells(Array(9).fill(null));
-    setCurrentStep(SYMBOL_O);
-    setWinnerSequence();
+    setCells(Array.from({ length: 9 }, () => null));
+    setCurrentStep(SYMBOL_X);
+    setWinnerSequence(undefined);
   };
-
-  const winnerSymbol = getWinnerCell ? cells[getWinnerCell[0]] : undefined;
-  const isDraw = !getWinnerCell && cells.filter((value) => value).length === 9;
 
   return {
     cells,
     currentStep,
     winnerSymbol,
     isDraw,
-    resetGame,
     toggleCell,
+    resetGame,
     getWinnerCell,
   };
 }

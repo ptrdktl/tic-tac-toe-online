@@ -1,7 +1,7 @@
 export function ResetButton({ onClick }) {
   return (
     <button
-      className="cursor-pointer mt-3 bg-transparent border border-black py-1 px-2 hover:text-white hover:bg-black"
+      className="cursor-pointer mt-2.5 bg-transparent border border-gray-400 py-1 px-3 rounded"
       onClick={onClick}
     >
       Сбросить
